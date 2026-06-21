@@ -27,6 +27,7 @@ menuBtn.addEventListener('click', () => {
   const isOpen = navLinks.classList.toggle('open');
   menuBtn.classList.toggle('open');
   menuBtn.setAttribute('aria-expanded', isOpen);
+  document.querySelector('.nav-inner').classList.toggle('menu-open', isOpen);
 });
 
 navLinks.querySelectorAll('a').forEach(link => {
@@ -34,7 +35,19 @@ navLinks.querySelectorAll('a').forEach(link => {
     navLinks.classList.remove('open');
     menuBtn.classList.remove('open');
     menuBtn.setAttribute('aria-expanded', 'false');
+    document.querySelector('.nav-inner').classList.remove('menu-open');
   });
+});
+
+document.addEventListener('click', (e) => {
+  if (navLinks.classList.contains('open') &&
+      !navLinks.contains(e.target) &&
+      !menuBtn.contains(e.target)) {
+    navLinks.classList.remove('open');
+    menuBtn.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    document.querySelector('.nav-inner').classList.remove('menu-open');
+  }
 });
 
 // ===== Footer year =====
@@ -78,13 +91,6 @@ document.addEventListener('keydown', (e) => {
   if(e.key === 'Escape') closeLightbox();
 });
 
-
-// SETUP REQUIRED:
-// 1. Create a free account at https://www.emailjs.com/
-// 2. Add an Email Service (e.g. Gmail) -> copy the Service ID
-// 3. Create an Email Template with variables: from_name, reply_to, message -> copy the Template ID
-// 4. Find your Public Key under Account -> General
-// 5. Replace the three placeholders below
 const EMAILJS_PUBLIC_KEY = 'J7C7fRjzTtNoQJRgp';
 const EMAILJS_SERVICE_ID = 'service_ni6heeb';
 const EMAILJS_TEMPLATE_ID = 'template_tlyuevg';
